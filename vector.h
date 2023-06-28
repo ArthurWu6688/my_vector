@@ -5,12 +5,16 @@
 #ifndef VECTOR106_VECTOR_H
 #define VECTOR106_VECTOR_H
 
+#include "reverser_iterator.h"
+
 namespace wyp {
     template<class T>
     class vector {
     public:
         typedef T *iterator;
         typedef const T *const_iterator;
+        typedef _reverser_iterator<iterator, T &, T *> reverse_iterator;
+        typedef _reverser_iterator<const_iterator, T &, T *> const_reverse_iterator;
 
         iterator begin() {
             return _start;
@@ -26,6 +30,22 @@ namespace wyp {
 
         const_iterator end() const {
             return _finish;
+        }
+
+        reverse_iterator rbegin() {
+            return reverse_iterator(end());
+        }
+
+        const_reverse_iterator rbegin() const {
+            return const_reverse_iterator(end());
+        }
+
+        reverse_iterator rend() {
+            return reverse_iterator(begin());
+        }
+
+        const_reverse_iterator rend() const {
+            return const_reverse_iterator(begin());
         }
 
         T &operator[](size_t pos) {
@@ -56,7 +76,7 @@ namespace wyp {
                 T *tmp = new T[n];
                 if (_start) {
                     ////memcpy(tmp, _start, sizeof(T) * old_size);
-                    for(int i = 0; i < old_size; ++i){
+                    for (int i = 0; i < old_size; ++i) {
                         tmp[i] = _start[i];
                     }
                     delete[] _start;
@@ -100,7 +120,7 @@ namespace wyp {
             swap(tmp);
         }
 
-        vector<T>& operator=(vector<T> v){
+        vector<T> &operator=(vector<T> v) {
             swap(v);
             return *this;
         }

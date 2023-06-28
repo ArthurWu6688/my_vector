@@ -163,7 +163,27 @@ void test_vector7() {
     std::cout << std::endl;
 }
 
+void test_vector8() {
+    wyp::vector<int> v;
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(3);
+    v.push_back(4);
+    v.push_back(5);
+    for (auto e: v) {
+        std::cout << e << " ";
+    }
+    std::cout << std::endl;
+
+    wyp::vector<int>::reverse_iterator rit = v.rbegin();
+    while (rit != v.rend()) {
+        std::cout << *rit << " ";
+        ++rit;
+    }
+    std::cout << std::endl;
+}
+
 int main() {
-    test_vector7();
+    test_vector8();
     return 0;
 }
